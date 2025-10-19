@@ -16,8 +16,11 @@ if st.button("Gerar estrutura"):
             st.warning("Não foi possível identificar módulos. Verifique o formato do texto.")
         else:
             st.success("✅ Estrutura de aprendizado identificada!")
-            total_horas = df['duracao_horas'].dropna().sum()
-            st.write(f"**Carga horária total estimada:** {int(total_horas)} horas")
+           if "duracao_horas" in df.columns and df["duracao_horas"].notna().any():
+    total_horas = df["duracao_horas"].dropna().sum()
+    st.write(f"**Carga horária total estimada:** {int(total_horas)} horas")
+else:
+    st.info("⏱️ Nenhuma duração detectada. Você pode adicionar '(2h)' ou '(3 horas)' nos módulos para calcular o tempo total.")
 
             st.dataframe(df)
 
